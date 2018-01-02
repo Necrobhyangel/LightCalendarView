@@ -39,12 +39,12 @@ afterEvaluate { project ->
                     name 'LightCalendarView'
                     packaging 'aar'
                     description 'A lightweight monthly calendar view for Android, fully written in Kotlin. Designed to meet the minimum demands for typical calendars.'
-                    url 'https://github.com/recruit-mp/light-calendarview'
+                    url 'https://github.com/ThomasCookDeveloperInfo/LightCalendarView'
 
                     scm {
-                        url 'https://github.com/recruit-mp/light-calendarview.git'
-                        connection 'scm:git@github.com:recruit-mp/light-calendarview.git'
-                        developerConnection 'scm:git@github.com:recruit-mp/light-calendarview.git'
+                        url 'https://github.com/ThomasCookDeveloperInfo/LightCalendarView.git'
+                        connection 'scm:git@github.com:ThomasCookDeveloperInfo/LightCalendarView.git'
+                        developerConnection 'sscm:git@github.com:ThomasCookDeveloperInfo/LightCalendarView.git'
                     }
 
                     licenses {
