@@ -84,6 +84,8 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
                 R.styleable.LightCalendarView_lcv_selectionColor -> setSelectionColor(a.getColorStateList(attr))
                 R.styleable.LightCalendarView_lcv_accentColor -> setAccentColor(a.getColorStateList(attr))
                 R.styleable.LightCalendarView_lcv_firstDayOfWeek -> setFirstDayOfWeek(a.getInt(attr, 0))
+                R.styleable.LightCalendarView_lcv_outsideTextColor -> setOutsideTextColor(a.getColor(attr, 0))
+                R.styleable.LightCalendarView_lcv_holidayTextColor -> setHolidayTextColor(a.getColor(attr, 0))
             }
         }
         a.recycle()
@@ -178,6 +180,23 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     /**
+     * 前月・翌月の文字色を設定する
+     */
+    fun setOutsideTextColor(color: Int) {
+        settings.dayView.apply {
+                setOutsideTextColorStateList(color)
+            }.notifySettingsChanged()
+    }
+    /**
+     * 祝日の文字色を設定する
+     */
+    fun setHolidayTextColor(color: Int) {
+        settings.dayView.apply {
+            setHolidayTextColorStateList(color)
+        }.notifySettingsChanged()
+    }
+
+    /**
      * 文字色を設定する
      */
     fun setTextColor(colorStateList: ColorStateList) {
@@ -225,6 +244,15 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
         }.notifySettingsChanged()
     }
 
+
+    var displayOutside: Boolean
+        get() = settings.displayOutside
+        set(value) {
+                settings.apply {
+                    displayOutside = value
+                }.notifySettingsChanged()
+        }
+
     /**
      * First day of the week (e.g. Sunday, Monday, ...)
      */
@@ -237,6 +265,14 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     private fun setFirstDayOfWeek(n: Int) {
         firstDayOfWeek = WeekDay.fromOrdinal(n)
+    }
+
+    var fixToday: Boolean
+    get() = settings.fixToday
+    set(value) {
+            settings.apply {
+                    fixToday = value
+                }.notifySettingsChanged()
     }
 
     /**

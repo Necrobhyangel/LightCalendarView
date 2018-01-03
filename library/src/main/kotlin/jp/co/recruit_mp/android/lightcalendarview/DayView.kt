@@ -54,6 +54,8 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
     private var accentsCenterY: Float = 0f
 
     private var drawCircle: Boolean = false
+    private var isOutside: Boolean = false
+    private var isHoliday: Boolean = false
 
     private var radius: Float = 0f
     private var currentRadius: Float = 0f
@@ -109,6 +111,16 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
         layoutAccents()
         animateAccents()
     }
+
+     fun setOutside():DayView {
+         this.isOutside = true
+         return this
+     }
+     // 祝日に設定
+     fun setHoliday() {
+         this.isHoliday = true
+         updatePaint();
+     }
 
     // 各アクセントの位置を設定する
     private fun layoutAccents() {
@@ -172,7 +184,6 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
         //       = baseY + (height - baseY) / 2
         accentsCenterX = centerX
         accentsCenterY = baseY + (height - baseY) / 2f
-
         radius = Math.min((width - paddingLeft - paddingRight) / 2f, (height - paddingTop - paddingBottom) / 2f)
     }
 
@@ -208,6 +219,15 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
             DateUtils.isToday(date.time) -> {
                 textPaint = settings.dayView.todayTextPaint
                 accentPaint = settings.dayView.todayAccentPaint
+            }
+            isOutside -> {
+                textPaint = settings.dayView.outsideTextPaint
+                accentPaint = settings.dayView.defaultAccentPaint
+            }
+            // 祝日の設定
+            isHoliday -> {
+                textPaint = settings.dayView.holidayTextPaint
+                accentPaint = settings.dayView.defaultAccentPaint
             }
             else -> {
                 textPaint = settings.dayView.defaultTextPaint(weekDay)

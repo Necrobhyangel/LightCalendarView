@@ -56,6 +56,14 @@ class MonthView(context: Context, private val settings: CalendarSettings, var mo
         it.invalidateDayViews()
     }
 
+    // 祝日追加
+    fun setHolidays(map: Collection<Date>) {
+        map.forEach { it ->
+            val date = it
+            dayLayout.getDayView(date)?.setHoliday();
+        }
+    }
+
     fun setAccents(map: Map<Date, Collection<Accent>>) {
         map.forEach { it ->
             val (date, accents) = it

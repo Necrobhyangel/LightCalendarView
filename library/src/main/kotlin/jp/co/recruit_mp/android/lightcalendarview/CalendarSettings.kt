@@ -35,6 +35,8 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
     val dayView = DayView(observer)
     var timeZone: TimeZone = TimeZone.getDefault()
     var locale: Locale = Locale.getDefault()
+    var displayOutside: Boolean = false
+    var fixToday: Boolean = false
 
     // settings for DayLayout and WeekDayLayout: first day of the week
     var firstDayOfWeek: WeekDay = WeekDay.SUNDAY
@@ -79,7 +81,6 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
 
         // ------------ Text ---------------------------------------------------------------------------------------
         internal fun defaultTextPaint(weekDay: WeekDay): Paint = defaultTextPaints[weekDay] ?: throw IllegalStateException("cannot find default Paint with weekDay - $weekDay")
-
         internal var defaultTextPaints: Map<WeekDay, Paint> = initializedDefaultTextPaints()
 
         private fun initializedDefaultTextPaints() = WeekDay.values().map {
@@ -118,6 +119,7 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
                 todayTextPaint.textSize(value)
                 selectedTextPaint.textSize(value)
                 selectedTodayTextPaint.textSize(value)
+                outsideTextPaint.textSize(value)
             }
 
         private val textFilterColorMap: MutableMap<WeekDay, Int?> = WeekDay.values().map {
@@ -173,6 +175,8 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
         internal var todayTextPaint: Paint = initializedTodayTextPaint()
         internal var selectedTextPaint: Paint = initializeSelectedTextPaint()
         internal var selectedTodayTextPaint: Paint = initializedSelectedTodayTextPaint()
+        internal var outsideTextPaint: Paint = initializeOutsideTextPaint()
+        internal var holidayTextPaint: Paint = initializeHolidayTextPaint()
 
         private fun initializedDefaultTextPaints() = WeekDay.values().map {
             it to baseTextPaint.copy().colorFilter(textFilterColorMap[it]?.let { color -> PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP) } ?: throw IllegalStateException("Day color map for ${it} not found."))
@@ -181,6 +185,8 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
         private fun initializedTodayTextPaint() = baseTextPaint.copy().color(context.getStyledColor(android.R.attr.textColorPrimary, context.getColorCompat(R.color.light_calendar_view__day_today_text_color)))
         private fun initializeSelectedTextPaint() = baseTextPaint.copy().typeface(Typeface.DEFAULT_BOLD).color(context.getStyledColor(android.R.attr.textColorPrimaryInverse, context.getColorCompat(R.color.light_calendar_view__day_selected_text_color)))
         private fun initializedSelectedTodayTextPaint() = baseTextPaint.copy().typeface(Typeface.DEFAULT_BOLD).color(context.getStyledColor(android.R.attr.textColorPrimaryInverse, context.getColorCompat(R.color.light_calendar_view__day_selected_today_text_color)))
+        private fun initializeOutsideTextPaint() = baseTextPaint.copy().color(context.getStyledColor(android.R.attr.textColorPrimary, context.getColorCompat(R.color.light_calendar_view__day_today_text_color)))
+        private fun initializeHolidayTextPaint() = baseTextPaint.copy().color(context.getStyledColor(android.R.attr.textColorPrimary, context.getColorCompat(R.color.light_calendar_view__day_today_text_color)))
         // ---------------------------------------------------------------------------------------------------------
 
         // ------------ Accent -------------------------------------------------------------------------------------
@@ -210,6 +216,14 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
         internal fun setTextFilterColor(weekDay: WeekDay, color: Int?) {
             textFilterColorMap[weekDay] = color
             defaultTextPaints[weekDay]?.colorFilter(textFilterColorMap[weekDay]?.let { color -> PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP) } ?: throw IllegalStateException("Day color map for ${weekDay} not found."))
+        }
+
+        internal fun setOutsideTextColorStateList(color:Int) {
+            outsideTextPaint.color = color
+        }
+
+        internal fun setHolidayTextColorStateList(color: Int) {
+            holidayTextPaint.color = color
         }
 
         internal fun setAccentColorStateList(colorStateList: ColorStateList) {
