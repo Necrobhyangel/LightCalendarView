@@ -27,5 +27,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-apply from: 'mvn-push.gradle'
