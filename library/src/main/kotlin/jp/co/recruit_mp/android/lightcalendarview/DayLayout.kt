@@ -72,6 +72,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        updateLayout()
         settings.addObserver(observer)
     }
 
