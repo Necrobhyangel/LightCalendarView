@@ -42,7 +42,6 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
     internal var callback: Callback? = null
     private var firstDate: Calendar = CalendarKt.getInstance(settings)
     private var dayOfWeekOffset: Int = -1
-    private val thisYear: Int
     private val thisMonth: Int
 
     init {
@@ -50,8 +49,15 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
             time = month
             set(Calendar.DAY_OF_MONTH, 1)
         }
-        thisYear = cal[Calendar.YEAR]
+
+        // Work out the offset of the first day of month
+        val daysToSubtract = DEFAULT_DAYS_IN_WEEK - (DEFAULT_DAYS_IN_WEEK - cal.get(Calendar.DAY_OF_WEEK))
+
+        // Keep a reference to this month
         thisMonth = cal[Calendar.MONTH]
+
+        // Add the offset to the calendar
+        cal.add(Calendar.DAY_OF_MONTH, daysToSubtract)
 
         // update the layout
         updateLayout()
@@ -114,7 +120,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
                         }
                     }
                 }
-                cal.add(Calendar.DAY_OF_YEAR, 1)
+                cal.add(Calendar.DAY_OF_MONTH, 1)
             }
         }
     }
