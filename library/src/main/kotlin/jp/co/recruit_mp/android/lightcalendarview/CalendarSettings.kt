@@ -63,8 +63,8 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
 
         private val textFilterColorMap: MutableMap<WeekDay, Int?> = WeekDay.values().map {
             it to when (it) {
-                WeekDay.SUNDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_sunday_text_color)
-                WeekDay.SATURDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_saturday_text_color)
+                WeekDay.SUNDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_weekday_text_color)
+                WeekDay.SATURDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_weekday_text_color)
                 else -> 0x00000000
             }
         }.toMutableMap()
@@ -122,8 +122,8 @@ class CalendarSettings(private val context: Context) : ObservableSettings() {
 
         private val textFilterColorMap: MutableMap<WeekDay, Int?> = WeekDay.values().map {
             it to when (it) {
-                WeekDay.SUNDAY -> context.getColorCompat(R.color.light_calendar_view__day_sunday_text_color)
-                WeekDay.SATURDAY -> context.getColorCompat(R.color.light_calendar_view__day_saturday_text_color)
+                WeekDay.SUNDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_weekday_text_color)
+                WeekDay.SATURDAY -> context.getColorCompat(R.color.light_calendar_view__week_day_weekday_text_color)
                 else -> 0x00000000
             }
         }.toMutableMap()
