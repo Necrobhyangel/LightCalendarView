@@ -31,7 +31,15 @@ internal fun Date.isSameDay(settings: CalendarSettings, date: Date): Boolean {
 }
 
 /** 自身が date の何日後かを返す */
-internal fun Date.daysAfter(date: Date): Long = ((this.time - date.time) / TimeUnit.DAYS.toMillis(1))
+internal fun Date.daysAfter(date: Date): Long {
+    val calendarFrom = Calendar.getInstance(Locale.getDefault())
+    calendarFrom.time = date
+
+    val calendarTo = Calendar.getInstance(Locale.getDefault())
+    calendarTo.time = this
+
+    return (calendarTo.get(Calendar.DAY_OF_YEAR) - calendarFrom.get(Calendar.DAY_OF_YEAR)).toLong()
+}
 
 /** 自身が date の何ヶ月後かを返す */
 internal fun Date.monthsAfter(settings: CalendarSettings, date: Date): Long {
