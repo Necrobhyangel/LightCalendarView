@@ -114,6 +114,7 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
 
      fun setOutside():DayView {
          this.isOutside = true
+         updatePaint()
          return this
      }
      // 祝日に設定
