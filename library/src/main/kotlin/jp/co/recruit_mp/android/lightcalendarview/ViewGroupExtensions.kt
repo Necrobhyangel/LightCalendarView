@@ -28,9 +28,10 @@ internal val ViewGroup.childList: List<View>
 internal fun ViewGroup.invalidateChildViews() {
     invalidate()
     childList.forEach {
-        when(it){
-            is ViewGroup -> it.invalidateChildViews()
-            is View -> it.invalidate()
+        if (it is ViewGroup) {
+            it.invalidateChildViews()
+        } else if (it is View) {
+            it.invalidate()
         }
     }
 }

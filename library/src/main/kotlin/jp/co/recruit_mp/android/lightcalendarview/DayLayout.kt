@@ -38,7 +38,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
 
     internal var selectedDayView: DayView? = null
 
-    internal var onDateSelected: ((date: Date) -> Unit)? = null
+    internal var callback: Callback? = null
     private var firstDate: Calendar = CalendarKt.getInstance(settings)
     private var dayOfWeekOffset: Int = -1
     private val thisYear: Int
@@ -141,7 +141,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
         selectedDayView = view?.apply {
             isSelected = true
             updateState()
-            onDateSelected?.invoke(date)
+            callback?.onDateSelected(date)
         }
     }
 
@@ -150,4 +150,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
      */
     fun getDayView(date: Date): DayView? = childList.getOrNull(date.daysAfter(firstDate.time).toInt()) as? DayView
 
+    interface Callback {
+        fun onDateSelected(date: Date)
+    }
 }

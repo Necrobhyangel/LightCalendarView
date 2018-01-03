@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Created by masayuki-recruit on 8/24/16.
- * Modified by Thomas Cook on 02/01/2018 to fix bug with working out daysAfter
  */
 
 /** 日付が一致するかどうかを返す */
@@ -31,20 +30,8 @@ internal fun Date.isSameDay(settings: CalendarSettings, date: Date): Boolean {
     return (thisCal[Calendar.YEAR] == thatCal[Calendar.YEAR] && thisCal[Calendar.DAY_OF_YEAR] == thatCal[Calendar.DAY_OF_YEAR])
 }
 
-/**
- * Returns the amount of days between the passed day and this
- */
-internal fun Date.daysAfter(date: Date): Long {
-    val calendarFrom = Calendar.getInstance(Locale.getDefault())
-    calendarFrom.time = date
-
-    val calendarTo = Calendar.getInstance(Locale.getDefault())
-    calendarTo.time = this
-
-    val localFrom = LocalDate.of(calendarFrom.get(Calendar.YEAR), calendarFrom.get(Calendar.MONTH), calendarFrom.get(Calendar.DAY_OF_YEAR))
-    val localTo = LocalDate.of(calendarTo.get(Calendar.YEAR), calendarTo.get(Calendar.MONTH), calendarTo.get(Calendar.DAY_OF_YEAR))
-    return Period.between(localFrom, localTo)
-}
+/** 自身が date の何日後かを返す */
+internal fun Date.daysAfter(date: Date): Long = ((this.time - date.time) / TimeUnit.DAYS.toMillis(1))
 
 /** 自身が date の何ヶ月後かを返す */
 internal fun Date.monthsAfter(settings: CalendarSettings, date: Date): Long {
