@@ -148,11 +148,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
     private fun setSelectedDay(view: DayView?) {
         selectedDayView?.apply {
             isSelected = false
-            if (!settings.fixToday || !DateUtils.isToday(selectedDayView?.date!!.time)) {
-                // 今日の場合は常に丸を表示させる
-                isSelected = false
-                updateState()
-            }
+            updateState()
         }
         selectedDayView = view?.apply {
             isSelected = true

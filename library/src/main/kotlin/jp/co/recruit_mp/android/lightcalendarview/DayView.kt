@@ -252,7 +252,7 @@ class DayView(context: Context, settings: CalendarSettings, var cal: Calendar) :
         super.onDraw(canvas)
 
         canvas?.let {
-            // 背景の描画
+            //  背景の描画
             if (drawCircle) {
                 it.drawCircle(centerX, centerY, currentRadius, circlePaint)
             }
