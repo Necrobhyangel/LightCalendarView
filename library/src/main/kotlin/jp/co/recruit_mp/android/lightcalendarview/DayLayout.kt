@@ -18,7 +18,6 @@ package jp.co.recruit_mp.android.lightcalendarview
 
 import android.content.Context
 import android.support.v4.view.ViewCompat
-import android.text.format.DateUtils
 import java.util.*
 
 /**
@@ -61,9 +60,6 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
 
         // update the layout
         updateLayout()
-
-        // 今日を選択
-        setSelectedDay(Date())
     }
 
     private val observer = Observer { observable, any ->
