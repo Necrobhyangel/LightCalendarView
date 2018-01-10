@@ -46,6 +46,7 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
             }
         }
     }
+
     private val monthViewCallback: MonthView.Callback = object : MonthView.Callback {
         override fun onDateSelected(date: Date) {
             onStateUpdatedListener?.onDateSelected(date)
@@ -54,6 +55,10 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     fun selectDay(date: Date) {
         getMonthViewForPosition(selectedPage)?.setSelectedDate(date)
+    }
+
+    fun getSelectedDayView(date: Date) : DayView? {
+        getMonthViewForPosition(selectedPage)?.getSelectedDayView(date)
     }
 
     var monthCurrent: Date

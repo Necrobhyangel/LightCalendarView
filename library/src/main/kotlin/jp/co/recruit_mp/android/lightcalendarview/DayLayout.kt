@@ -134,6 +134,10 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
         }
     }
 
+    fun getSelectedDayView(date: Date) : DayView? {
+        return getDayView(date)
+    }
+
     /**
      * 日付を選択する
      * @param date 選択する日
