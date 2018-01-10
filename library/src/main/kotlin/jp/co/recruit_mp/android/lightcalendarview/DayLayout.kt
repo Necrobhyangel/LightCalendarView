@@ -123,7 +123,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
     }
 
     private fun instantiateDayView(cal: Calendar): DayView = DayView(context, settings, cal).apply {
-        setOnClickListener { setSelectedDay(this) }
+//        setOnClickListener { setSelectedDay(this) }
     }
 
     internal fun invalidateDayViews() {
