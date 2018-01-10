@@ -19,6 +19,7 @@ package jp.co.recruit_mp.android.lightcalendarview
 import android.content.Context
 import android.support.v4.view.ViewCompat
 import java.util.*
+import android.os.Handler
 
 /**
  * 月カレンダー内の日を表示する {@link ViewGroup}
@@ -123,7 +124,7 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
     }
 
     private fun instantiateDayView(cal: Calendar): DayView = DayView(context, settings, cal).apply {
-//        setOnClickListener { setSelectedDay(this) }
+        setOnClickListener { setSelectedDay(this) }
     }
 
     internal fun invalidateDayViews() {
@@ -138,7 +139,9 @@ class DayLayout(context: Context, settings: CalendarSettings, var month: Date) :
      * @param date 選択する日
      */
     fun setSelectedDay(date: Date) {
-        setSelectedDay(getDayView(date))
+        Handler().post {
+            setSelectedDay(getDayView(date))
+        }
     }
 
     private fun setSelectedDay(view: DayView?) {
