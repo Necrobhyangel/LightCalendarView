@@ -48,7 +48,7 @@ class MonthView(context: Context, private val settings: CalendarSettings, var mo
     }
 
     fun getSelectedDayView(date: Date) : DayView? {
-        dayLayout.getSelectedDayView(date)
+        return dayLayout.getSelectedDayView(date)
     }
 
     fun setSelectedDate(date: Date) {

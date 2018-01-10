@@ -58,7 +58,7 @@ class LightCalendarView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     fun getSelectedDayView(date: Date) : DayView? {
-        getMonthViewForPosition(selectedPage)?.getSelectedDayView(date)
+        return getMonthViewForPosition(selectedPage)?.getSelectedDayView(date)
     }
 
     var monthCurrent: Date
